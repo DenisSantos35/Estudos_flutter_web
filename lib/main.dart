@@ -1,20 +1,35 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:learn_flutter_web/diferentes_tamanhos.dart';
 import 'package:learn_flutter_web/loja_virtual.dart';
 import 'package:learn_flutter_web/orientacao.dart';
 import 'package:learn_flutter_web/regras_layout.dart';
 import 'package:learn_flutter_web/responsividade_media_query.dart';
 import 'package:learn_flutter_web/responsividade_row_column.dart';
 import 'package:learn_flutter_web/responsividade_wrap.dart';
+import 'package:learn_flutter_web/tamanho_proporcional.dart';
+import 'package:learn_flutter_web/tamanho_textos.dart';
 
 void main() {
-  runApp(const MaterialApp(
-      title: "Flutter Web",
-      debugShowCheckedModeBanner: false,
-      home: LojaVirtual()
-      //RegrasLayout()
-      //Orientacao()
-      //ResponsividadeWrap()
-      //ResponsividadeRowColumn()
-      //ResponsividadeMediaQuery(),
-      ));
+  runApp(DevicePreview(
+    builder: (context) {
+      return MaterialApp(
+          title: "Flutter Web",
+          debugShowCheckedModeBanner: false,
+          builder: DevicePreview.appBuilder,
+          locale: DevicePreview.locale(context),
+          useInheritedMediaQuery: true,
+          home:
+              //DiferentesTamanhos()
+              //TamanhoProporcional()
+              //TamanhoTextos()
+              LojaVirtual()
+          //RegrasLayout()
+          //Orientacao()
+          //ResponsividadeWrap()
+          //ResponsividadeRowColumn()
+          //ResponsividadeMediaQuery(),
+          );
+    },
+  ));
 }
