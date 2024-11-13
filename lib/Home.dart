@@ -9,25 +9,112 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class Funcionario {
-  //configura o valor posteriormente
-  late double salario;
+// class Funcionario {
+//   //configura o valor posteriormente
+//   late double salario;
 
-  calcuar() {
-    salario = 100; //calculo
+//   calcuar() {
+//     salario = 100; //calculo
+//   }
+// }
+
+// int soma({required int primeiro, int segundo = 0}) {
+//   return primeiro + segundo;
+// }
+
+// int totalCaracteres(String? texto) {
+//   //if (texto == null) return 0;
+//   if (texto == null) throw 'Texto nao pode ser nulo';
+//   return texto.length;
+// }
+
+// class Usuario {
+//   String? _nome;
+
+//   int totalCaracteres() {
+//     String? nome = _nome;
+//     if (nome == null) {
+//       return 0;
+//     }
+//     return nome.length;
+//   }
+// }
+
+// 1) Late keyword
+
+// class Usuario {
+//   late String nome;
+
+//   void configuraNome(String texto) {
+//     nome = texto;
+//   }
+// }
+
+// //late com referencia circular
+// class Time {
+//   late Treinador treinador;
+// }
+
+// class Treinador {
+//   late Time time;
+// }
+
+//late - lazy (inicialização preguiçosa)
+//ao colocar o late em um atributo que chama uma função
+// a função será executada somente quando o atributo for chamado
+//caso nao tenha toda vez que for instanciado será chamado e executado a função
+// int calculaTotalItens() {
+//   print("calculaTotalItens: 3");
+//   return 3;
+// }
+
+// class Carrinho {
+//   late int totalItens = calculaTotalItens();
+// }
+
+//inicialização de variaveis não nulas
+//variaveis superiores
+int total = 0;
+
+//campos estáticos
+class Pedidos {
+  static int total = 0;
+}
+
+//campos de instância devem ser inicializados
+// - inicialização ou construtor
+
+class Carrinho {
+  int totalItens = 0;
+  String item;
+  int quantidade;
+
+  Carrinho(this.item, this.quantidade);
+}
+
+//variaveis locais
+int calcularSalario(int salario) {
+  int resultado;
+
+  if (salario > 1000) {
+    resultado = salario;
+  } else {
+    resultado = salario + 100;
   }
+
+  return resultado;
 }
 
 class _HomeState extends State<Home> {
-  //Variavel nao pode ser nula
-  String? nome = "Denis";
-  int idade = 10;
-  double altura = 1.10;
+  // //Variavel nao pode ser nula
+  // String? nome = "Denis";
+  // int idade = 10;
+  // double altura = 1.10;
 
-  //E se precisar de uma variavel nula?
-  String? complemento;
-  int? numero;
-  double? preco;
+  // //E se precisar de uma variavel nula?
+  // String? complemento;
+  // int? numero;
+  // double? preco;
 
   //variaveis nulas
   //double? int? bool? List?
@@ -37,76 +124,125 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    /*Lista pode ser nula ? Não
-    Item pode ser nulo ? Não */
+    //inicialização de variaveis não nulas
+    //variaveis superiores
+    total = 10;
+    print("total: $total");
+    //campos estáticos
+    print("identificador: ${Pedidos.total}");
+    //campos de instância devem ser inicializados
+    // - inicialização ou construtor
+    Carrinho carrinho = Carrinho("roda", 4);
+    print("item: ${carrinho.item}, quantidade: ${carrinho.quantidade}");
+    //variaveis locais
+    int resultado = calcularSalario(900);
+    print(resultado);
 
-    List<String> lista1 = [];
-    print("Lista: $lista1");
+    //late -> inicialização tardia
+    // Usuario usuario = Usuario();
+    // usuario.configuraNome("Denis");
+    // print(usuario.nome);
 
-    /*Lista pode ser nula ? sim
-    Item pode ser nulo ? Não */
+    // //late com referencia circular
+    // Time time = Time();
+    // Treinador treinador = Treinador();
 
-    List<String>? lista2;
-    print("Lista 2: $lista2");
+    // time.treinador = treinador;
+    // treinador.time = time;
 
-    /*Lista pode ser nula ? Não
-    Item pode ser nulo ? Sim */
-
-    List<String?> lista3 = ["item", null];
-    print("Lista 3: $lista3");
-
-    /*Lista pode ser nula ? Sim
-    Item pode ser nulo ? Sim */
-
-    List<String?>? lista4 = ["item", null];
-    print("Lista 4: $lista4");
-
+    // // late - lazy (preguiçosa)
+    // Carrinho carrinho = Carrinho();
+    //print("total: ${carrinho.totalItens}");
     /*
-    Map pode ser nulo? Não
-    Item pode ser nulo? Não
-     */
+    type promochon */
+    // try {
+    //   print(totalCaracteres(null));
+    // } catch (e) {
+    //   print(e);
+    // }
+    //String? texto;
+    //texto = "Denis";
+    // if (DateTime.now().hour < 12) {
+    //   texto = "true";
+    // } else {
+    //   texto = "false";
+    // }
+    // print("resultado: $texto");
+    // print("tamanho ${texto.length}");
+    // //abordagem riquired
+    // int resultado = soma(primeiro: 1, segundo: 2);
+    // print(resultado);
 
-    Map<String, int> map1 = {};
-    print("Map: $map1");
+    // /*Lista pode ser nula ? Não
+    // Item pode ser nulo ? Não */
 
-    /*
-    Map pode ser nulo? Sim
-    Item pode ser nulo? Não
-     */
+    // List<String> lista1 = [];
+    // print("Lista: $lista1");
 
-    Map<String, int>? map2;
-    print("Map: $map2");
+    // /*Lista pode ser nula ? sim
+    // Item pode ser nulo ? Não */
 
-    /*
-    Map pode ser nulo? Não
-    Item pode ser nulo? Sim
-     */
+    // List<String>? lista2;
+    // print("Lista 2: $lista2");
 
-    Map<String, int?> map3 = {'idade': null};
-    print("Map: $map3");
+    // /*Lista pode ser nula ? Não
+    // Item pode ser nulo ? Sim */
 
-    /*
-    Map pode ser nulo? Sim
-    Item pode ser nulo? Sim
-     */
+    // List<String?> lista3 = ["item", null];
+    // print("Lista 3: $lista3");
 
-    Map<String, int?>? map4 = {'idade': null};
-    print("Map: $map4");
+    // /*Lista pode ser nula ? Sim
+    // Item pode ser nulo ? Sim */
 
-    //Exemplo de mas
-    Map<String, String> estados = {'SP': 'São Paulo', 'RJ': 'Rio de Janeiro'};
-    estados['MG'] = "Minas Gerais";
-    //estados['MG'] = null;
-    print("Estados: $estados");
+    // List<String?>? lista4 = ["item", null];
+    // print("Lista 4: $lista4");
 
-    //leitura do mapa retorna null
-    //String valor = estados["SP"];
-    //formas de definir maps
-    String valor = estados["SP"]!;
-    String valor2 = estados["SP"] ?? "";
-    String? valor3 = estados["SP"];
+    // /*
+    // Map pode ser nulo? Não
+    // Item pode ser nulo? Não
+    //  */
 
-    print("Estados: $valor3");
+    // Map<String, int> map1 = {};
+    // print("Map: $map1");
+
+    // /*
+    // Map pode ser nulo? Sim
+    // Item pode ser nulo? Não
+    //  */
+
+    // Map<String, int>? map2;
+    // print("Map: $map2");
+
+    // /*
+    // Map pode ser nulo? Não
+    // Item pode ser nulo? Sim
+    //  */
+
+    // Map<String, int?> map3 = {'idade': null};
+    // print("Map: $map3");
+
+    // /*
+    // Map pode ser nulo? Sim
+    // Item pode ser nulo? Sim
+    //  */
+
+    // Map<String, int?>? map4 = {'idade': null};
+    // print("Map: $map4");
+
+    // //Exemplo de mas
+    // Map<String, String> estados = {'SP': 'São Paulo', 'RJ': 'Rio de Janeiro'};
+    // estados['MG'] = "Minas Gerais";
+    // //estados['MG'] = null;
+    // print("Estados: $estados");
+
+    // //leitura do mapa retorna null
+    // //String valor = estados["SP"];
+    // //formas de definir maps
+    // String valor = estados["SP"]!;
+    // String valor2 = estados["SP"] ?? "";
+    // String? valor3 = estados["SP"];
+
+    // print("Estados: $valor3");
     // int? numero = 100;
     // //operador (!) -> null assertion operator
     // //So utilizar quando tiver a certeza que vai receber valor
